@@ -1,0 +1,315 @@
+# MPWA — Multi-Platform WhatsApp Gateway
+
+**Version 11.5.6** | Built on Laravel 12 + Node.js + Baileys
+
+MPWA is a powerful, self-hosted WhatsApp gateway that allows you to connect multiple WhatsApp accounts, send messages via API, automate replies with AI, run bulk campaigns, and manage everything from a beautiful admin panel.
+
+---
+
+## ✨ Features
+
+### 📱 Multi-Device WhatsApp
+- Connect **multiple WhatsApp accounts** simultaneously
+- QR code scanning or pairing code connection
+- Real-time device status via Socket.IO
+- Automatic reconnection on disconnect
+- Per-device webhook configuration (incoming, read receipts, typing, etc.)
+
+### 💬 Messaging
+- **Text messages** — Plain text with variable support
+- **Media messages** — Images, videos, documents, audio
+- **Stickers** — Send WebP stickers
+- **Buttons** — Interactive button messages
+- **List messages** — Scrollable list menus
+- **Polls** — Create and send polls
+- **Location** — Share GPS coordinates
+- **vCards** — Send contact cards
+- **Product messages** — WhatsApp catalog integration
+- **Channel messages** — Post to WhatsApp channels
+
+### 🤖 AI Chatbot
+- **ChatGPT** (OpenAI) integration
+- **Google Gemini** integration
+- **Claude** (Anthropic) integration
+- **DALL·E** image generation
+- **Bexa AI** support
+- Per-device AI toggle — enable/disable per WhatsApp account
+
+### 🔁 Auto-Reply
+- Keyword-based automatic responses
+- Support for text, media, button, list, and location replies
+- Customizable match patterns
+- Per-device auto-reply rules
+
+### 📢 Campaigns & Bulk Messaging
+- Create bulk messaging campaigns
+- Import contacts from phonebook groups
+- Message scheduling with configurable delays
+- Pause/resume campaigns
+- Campaign analytics and blast history
+- Support for all message types in campaigns
+
+### 📇 Contact Management (Phonebook)
+- Create contact groups (tags)
+- Import contacts from Excel/CSV
+- Export contacts
+- Fetch WhatsApp groups as contact lists
+- Bulk contact operations
+
+### 🔌 REST API
+- Full-featured API with API key authentication
+- **Endpoints:**
+  - `POST /api/send-message` — Send text messages
+  - `POST /api/send-media` — Send media (image, video, document, audio)
+  - `POST /api/send-sticker` — Send stickers
+  - `POST /api/send-button` — Send button messages
+  - `POST /api/send-list` — Send list messages
+  - `POST /api/send-poll` — Send polls
+  - `POST /api/send-location` — Send location
+  - `POST /api/send-vcard` — Send contact cards
+  - `POST /api/send-product` — Send product messages
+  - `POST /api/send-text-channel` — Send to WhatsApp channels
+  - `POST /api/check-number` — Validate WhatsApp number
+  - `POST /api/create-user` — Create user programmatically
+  - `GET /api/info-user` — Get user info
+  - `GET /api/info-devices` — List connected devices
+  - `GET /api/generate-qr` — Generate QR code
+  - `POST /api/logout-device` — Logout device
+  - `POST /api/delete-device` — Delete device
+- Built-in API documentation page
+- Per-user API keys
+
+### 💬 Live Chat
+- Real-time WhatsApp chat interface
+- View and reply to conversations
+- Chat session management
+- Custom session naming
+
+### 📊 Dashboard
+- Message statistics and analytics
+- Device overview
+- System resource monitoring (CPU, RAM, disk)
+- Quick access to all features
+
+### 👥 User Management (Admin)
+- Multi-user support with role-based access
+- Create, edit, delete users
+- "Login as user" functionality for admins
+- Per-user permissions (auto-reply, campaigns, chat, API, etc.)
+
+### 💳 Plans & Payments
+- Create subscription plans with limits (devices, messages, contacts)
+- Trial plans with configurable limits
+- **Payment gateways:**
+  - Stripe
+  - PayPal
+  - Midtrans
+  - Paymob
+  - Bank transfer (manual)
+- Order management for admins
+
+### 🔐 Security
+- Two-Factor Authentication (2FA) with Google Authenticator
+- Laravel Sanctum API authentication
+- Rate-limited login (5 attempts per minute)
+- Password reset via email
+- Session management
+
+### 🎨 Themes & Customization
+- Vuexy admin theme included
+- Theme management — install, switch, and delete themes
+- Customizable landing page (colors, content, features)
+- Multi-language support with translation management
+- RTL language support
+
+### 🛠️ Admin Tools
+- **Settings** — Server configuration, environment management, SSL generation
+- **Troubleshoot** — System diagnostics with report upload
+- **Updates** — In-app update system
+- **File Manager** — Server-side file browser
+- **Notifications** — Send notifications to users
+- **Ticket System** — User support tickets with admin replies
+- **Cron Jobs** — Scheduled task management
+- **Message History** — Full message logs with resend capability
+
+### 📋 Additional Features
+- Webhook support for incoming messages, read receipts, typing indicators
+- Message delay configuration per device
+- Configurable CORS and origin settings
+- Localization with 20+ language support
+- Install wizard for first-time setup
+- Responsive mobile-friendly UI
+
+---
+
+## 🏗️ Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| **Frontend** | Laravel 12 Blade + Vuexy Theme |
+| **Backend API** | Node.js + Express 5 + Socket.IO |
+| **WhatsApp Engine** | @onexgen/baileys v6.7 |
+| **Database** | MySQL (via mysql2) |
+| **PHP Framework** | Laravel 12 (PHP 8.2+) |
+| **Process Manager** | PM2 (production) |
+| **Authentication** | Laravel Sanctum + API Keys |
+| **AI Integration** | OpenAI, Google Gemini, Anthropic Claude |
+| **Image Processing** | Sharp, Jimp |
+| **Payments** | Stripe, PayPal, Midtrans, Paymob |
+
+---
+
+## 📋 Requirements
+
+| Requirement | Version |
+|-------------|---------|
+| **Node.js** | 20+ LTS |
+| **PHP** | 8.2+ |
+| **MySQL** | 5.7+ / MariaDB 10.4+ |
+| **Composer** | 2.x |
+| **npm** | 9+ |
+
+### Required PHP Extensions
+
+`mbstring`, `xml`, `bcmath`, `curl`, `zip`, `intl`, `gd`, `mysql`, `tokenizer`
+
+---
+
+## 🚀 Quick Start (Local Development)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/anuragkumarsingh134/mpwa-24-4-2026.git
+cd mpwa-24-4-2026
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+composer install
+```
+
+### 3. Apply Baileys patch
+
+```bash
+cp patches/validate-connection.js node_modules/@onexgen/baileys/lib/Utils/
+cp patches/validate-connection.d.ts node_modules/@onexgen/baileys/lib/Utils/
+```
+
+### 4. Setup environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 5. Create MySQL database
+
+```sql
+CREATE DATABASE mpwa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 6. Run migrations
+
+```bash
+php artisan migrate
+```
+
+### 7. Start the servers
+
+```bash
+# Terminal 1 — Node.js WhatsApp server
+node server.js
+
+# Terminal 2 — Laravel dev server
+php artisan serve
+```
+
+### 8. Open the Install Wizard
+
+Visit `http://localhost:8000` — the 5-step install wizard will guide you through:
+1. **Requirements** check
+2. **License** validation
+3. **Database** configuration
+4. **Admin** account creation
+5. **Server** settings (Node.js port, server type)
+
+---
+
+## 🌐 Production Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for a complete step-by-step guide to deploy on:
+- **Proxmox Ubuntu LXC** container
+- **Nginx** reverse proxy with PHP-FPM
+- **PM2** process management
+- **Let's Encrypt** SSL certificate
+- **Firewall** and security hardening
+
+---
+
+## 📁 Project Structure
+
+```
+mpwa-24-4-2026/
+├── app/                    # Laravel application (Controllers, Models, Middleware)
+│   ├── Http/Controllers/   # PHP controllers (Admin, API, Auth, Payments...)
+│   └── Http/Middleware/     # Auth, 2FA, API key, install check middleware
+├── config/                 # Laravel configuration files
+├── database/               # Migrations, seeders, factories
+├── patches/                # Baileys library patch files (REQUIRED)
+├── public/                 # Public assets (CSS, JS, images, themes)
+├── resources/              # Blade views, themes, translations
+│   └── themes/vuexy/       # Vuexy admin theme
+├── routes/                 # Laravel route definitions
+│   ├── web.php             # Web routes (UI, admin, auth)
+│   ├── api.php             # REST API routes
+│   └── custom-route.php    # Custom/extended routes
+├── server/                 # Node.js WhatsApp server
+│   ├── controllers/        # Message processing, incoming messages
+│   ├── database/           # MySQL connection pool
+│   ├── lib/                # Utilities, middleware, caching
+│   ├── router/             # Express routes for backend
+│   ├── chat.js             # Real-time chat handler
+│   └── whatsapp.js         # Baileys WhatsApp connection manager
+├── storage/                # Logs, cache, sessions, uploads
+├── server.js               # Node.js entry point
+├── composer.json            # PHP dependencies
+├── package.json             # Node.js dependencies
+└── .env.example             # Environment template
+```
+
+---
+
+## 🔑 API Authentication
+
+All API endpoints require an `Authorization` header with your API key:
+
+```bash
+curl -X POST https://yourdomain.com/api/send-message \
+  -H "Authorization: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "6281234567890",
+    "number": "6289876543210",
+    "message": "Hello from MPWA!"
+  }'
+```
+
+Your API key can be found in **User Settings** → **API Key**.
+
+---
+
+## 📜 License
+
+CC BY-NC-ND 4.0 — Copyright © Magd Almuntaser, OneXGen Technology.
+
+---
+
+## 🙏 Credits
+
+- **[OneXGen](https://www.onexgen.com)** — Original developer (Magd Almuntaser)
+- **[Baileys](https://github.com/WhiskeySockets/Baileys)** — WhatsApp Web API library
+- **[Laravel](https://laravel.com)** — PHP framework
+- **[Vuexy](https://pixinvent.com/vuexy)** — Admin theme
