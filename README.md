@@ -215,13 +215,17 @@ FLUSH PRIVILEGES;
 # Terminal 1 — Node.js WhatsApp server
 node server.js
 
-# Terminal 2 — Laravel dev server
-php artisan serve
+# Terminal 2 — Laravel dev server (use 0.0.0.0 to allow network access)
+php artisan serve --host=0.0.0.0
 ```
 
 ### 6. Complete the Install Wizard
 
-Visit `http://localhost:8000` — the 5-step install wizard will automatically:
+Open your browser and go to `http://<CONTAINER-IP>:8000`
+
+> **Tip:** Find your container's IP with `hostname -I` or `ip addr`. Since the app runs inside a Proxmox Ubuntu container, you access it from your Windows browser using the container's IP address, not `localhost`.
+
+The 5-step install wizard will automatically:
 1. **Check requirements** (PHP version, extensions)
 2. **Validate license**
 3. **Configure database** — enter your DB host, name, username, password (runs migrations & seeding automatically)
