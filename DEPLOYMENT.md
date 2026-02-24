@@ -172,12 +172,12 @@ npm install
 
 ### Step 10: Apply Baileys Patch
 
-Upload the patch files from your PC, then copy them:
+The patch files are included in the repo root. Copy them into node_modules:
 
 ```bash
-# If uploaded to /root/:
-cp /root/validate-connection.js  /var/www/mpwa/node_modules/@onexgen/baileys/lib/Utils/validate-connection.js
-cp /root/validate-connection.d.ts /var/www/mpwa/node_modules/@onexgen/baileys/lib/Utils/validate-connection.d.ts
+cd /var/www/mpwa
+cp validate-connection.js  node_modules/@onexgen/baileys/lib/Utils/validate-connection.js
+cp validate-connection.d.ts node_modules/@onexgen/baileys/lib/Utils/validate-connection.d.ts
 ```
 
 > [!CAUTION]
@@ -197,29 +197,14 @@ chown -R www-data:www-data /var/www/mpwa
 chmod -R 775 /var/www/mpwa/storage /var/www/mpwa/bootstrap/cache
 ```
 
-### Step 13: Prepare Laravel
-
-```bash
-cd /var/www/mpwa
-
-# Generate app key (if not already set)
-php artisan key:generate
-
-# Run migrations
-php artisan migrate --force
-
-# Create storage symlink
-php artisan storage:link
-```
-
 > [!NOTE]
-> Make sure `APP_INSTALLED=false` in the `.env` file. This ensures the install wizard will appear when you first open the site — letting you configure the database, admin account, and Node server through the web UI.
+> **Do NOT** run `php artisan migrate` or `php artisan key:generate` manually. The install wizard handles all of this automatically (migrations, seeding, admin creation, `.env` configuration). Just make sure `APP_INSTALLED=false` is set in the `.env` file.
 
 ---
 
 ## Part 4 — Configure Nginx Reverse Proxy
 
-### Step 14: Create Nginx Config
+### Step 13: Create Nginx Config
 
 ```bash
 nano /etc/nginx/sites-available/mpwa
@@ -295,7 +280,7 @@ systemctl reload nginx
 
 ## Part 5 — Start the Application
 
-### Step 15: Start Node.js Server with PM2
+### Step 14: Start Node.js Server with PM2
 
 ```bash
 cd /var/www/mpwa
@@ -312,7 +297,7 @@ pm2 logs mpwa-node --lines 10
 # Should say: "Server running and listening on port: 3100"
 ```
 
-### Step 16: Verify All Services
+### Step 15: Verify All Services
 
 ```bash
 systemctl status nginx
@@ -347,17 +332,19 @@ The app will **automatically redirect to the install wizard** because `APP_INSTA
 
 Click **Install** and the wizard will:
 - Test the database connection
-- Update the `.env` file
+- Run `migrate:fresh` + `db:seed` (creates all tables automatically)
+- Generate app key and create storage symlink
+- Update the `.env` file with all your settings
 - Create the admin user
 - Set `APP_INSTALLED=true`
 
-After installation, you'll be redirected to the **login page** 🎉
+After installation, you'll be automatically logged in and redirected to the **dashboard** 🎉
 
 ---
 
 ## Part 7 — SSL Certificate (Optional but Recommended)
 
-### Step 17: Install Certbot & Get SSL
+### Step 16: Install Certbot & Get SSL
 
 ```bash
 apt install -y certbot python3-certbot-nginx

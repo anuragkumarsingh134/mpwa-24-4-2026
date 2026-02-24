@@ -194,30 +194,19 @@ composer install
 ### 3. Apply Baileys patch
 
 ```bash
-cp patches/validate-connection.js node_modules/@onexgen/baileys/lib/Utils/
-cp patches/validate-connection.d.ts node_modules/@onexgen/baileys/lib/Utils/
+cp validate-connection.js node_modules/@onexgen/baileys/lib/Utils/
+cp validate-connection.d.ts node_modules/@onexgen/baileys/lib/Utils/
 ```
 
-### 4. Setup environment
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-### 5. Create MySQL database
+### 4. Create an empty MySQL database
 
 ```sql
 CREATE DATABASE mpwa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 6. Run migrations
+> **Note:** Don't run any migrations manually — the install wizard will handle everything.
 
-```bash
-php artisan migrate
-```
-
-### 7. Start the servers
+### 5. Start the servers
 
 ```bash
 # Terminal 1 — Node.js WhatsApp server
@@ -227,14 +216,16 @@ node server.js
 php artisan serve
 ```
 
-### 8. Open the Install Wizard
+### 6. Complete the Install Wizard
 
-Visit `http://localhost:8000` — the 5-step install wizard will guide you through:
-1. **Requirements** check
-2. **License** validation
-3. **Database** configuration
-4. **Admin** account creation
-5. **Server** settings (Node.js port, server type)
+Visit `http://localhost:8000` — the 5-step install wizard will automatically:
+1. **Check requirements** (PHP version, extensions)
+2. **Validate license**
+3. **Configure database** — enter your DB host, name, username, password (runs migrations & seeding automatically)
+4. **Create admin account** — set your admin username, email, password
+5. **Configure server** — set Node.js port and server type
+
+> The wizard writes all settings to `.env`, runs `migrate:fresh` + `db:seed`, creates the admin user, and logs you in — no manual commands needed!
 
 ---
 
@@ -258,7 +249,8 @@ mpwa-24-4-2026/
 │   └── Http/Middleware/     # Auth, 2FA, API key, install check middleware
 ├── config/                 # Laravel configuration files
 ├── database/               # Migrations, seeders, factories
-├── patches/                # Baileys library patch files (REQUIRED)
+├── validate-connection.js   # Baileys patch file (REQUIRED)
+├── validate-connection.d.ts # Baileys patch type definitions
 ├── public/                 # Public assets (CSS, JS, images, themes)
 ├── resources/              # Blade views, themes, translations
 │   └── themes/vuexy/       # Vuexy admin theme
