@@ -198,13 +198,16 @@ cp validate-connection.js node_modules/@onexgen/baileys/lib/Utils/
 cp validate-connection.d.ts node_modules/@onexgen/baileys/lib/Utils/
 ```
 
-### 4. Create an empty MySQL database
+### 4. Create MySQL database and user
 
 ```sql
 CREATE DATABASE mpwa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'mpwa_user'@'localhost' IDENTIFIED BY 'YourStrongPassword123!';
+GRANT ALL PRIVILEGES ON mpwa.* TO 'mpwa_user'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
-> **Note:** Don't run any migrations manually — the install wizard will handle everything.
+> **Note:** Change the password to something secure. Remember these credentials — you'll enter them in the install wizard. Don't run any migrations manually — the wizard handles everything.
 
 ### 5. Start the servers
 
